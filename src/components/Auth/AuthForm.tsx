@@ -10,29 +10,29 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }: any) {
   const [enteredPassword, setEnteredPassword] = useState('');
   const [enteredConfirmPassword, setEnteredConfirmPassword] = useState('');
 
-//   const {
-//     email: emailIsInvalid,
-//     confirmEmail: emailsDontMatch,
-//     password: passwordIsInvalid,
-//     confirmPassword: passwordsDontMatch,
-//   } = credentialsInvalid;
+  const {
+    email: emailIsInvalid,
+    confirmEmail: emailsDontMatch,
+    password: passwordIsInvalid,
+    confirmPassword: passwordsDontMatch,
+  } = credentialsInvalid;
 
-//   function updateInputValueHandler(inputType:any, enteredValue: any) {
-//     switch (inputType) {
-//       case 'email':
-//         setEnteredEmail(enteredValue);
-//         break;
-//       case 'confirmEmail':
-//         setEnteredConfirmEmail(enteredValue);
-//         break;
-//       case 'password':
-//         setEnteredPassword(enteredValue);
-//         break;
-//       case 'confirmPassword':
-//         setEnteredConfirmPassword(enteredValue);
-//         break;
-//     }
-//   }
+  //   function updateInputValueHandler(inputType:any, enteredValue: any) {
+  //     switch (inputType) {
+  //       case 'email':
+  //         setEnteredEmail(enteredValue);
+  //         break;
+  //       case 'confirmEmail':
+  //         setEnteredConfirmEmail(enteredValue);
+  //         break;
+  //       case 'password':
+  //         setEnteredPassword(enteredValue);
+  //         break;
+  //       case 'confirmPassword':
+  //         setEnteredConfirmPassword(enteredValue);
+  //         break;
+  //     }
+  //   }
 
   function submitHandler() {
     onSubmit({
@@ -48,47 +48,51 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }: any) {
       <View>
         <Input
           label="Email Address"
-          onUpdateValue={()=>{
-            console.log("email ---->>  "+enteredEmail)
-            setEnteredEmail(enteredEmail)
-        }}
+          onUpdateValue={(text: any) => {
+            console.log("email ---->>  " + text)
+            setEnteredEmail(text)
+          }}
           value={enteredEmail}
           keyboardType="email-address"
-          isInvalid={()=>null}
+          isInvalid={emailIsInvalid}
 
         />
-         {/* {!isLogin && (
+        {!isLogin && (
           <Input
+          
             label="Confirm Email Address"
-            onUpdateValue={updateInputValueHandler.bind(this, 'confirmEmail')}
+            onUpdateValue={(text: any) => {
+              console.log("email Confrim-------->>>>>>>>", text)
+              setEnteredConfirmEmail(text)
+            }}
             value={enteredConfirmEmail}
             keyboardType="email-address"
             isInvalid={emailsDontMatch}
           />
-        )} */}
+        )}
         <Input
           label="Password"
-          onUpdateValue={()=>{
-            setEnteredPassword(enteredPassword)
-            console.log("password ---->>  "+enteredPassword)
-
+          onUpdateValue={(text: any) => {
+            console.log("password ---->>  " + text)
+            setEnteredPassword(text)
           }}
           secure
           value={enteredPassword}
-        //   isInvalid={passwordIsInvalid}
+          isInvalid={passwordIsInvalid}
         />
         {!isLogin && (
           <Input
             label="Confirm Password"
-            onUpdateValue={updateInputValueHandler.bind(
-              this,
-              'confirmPassword'
-            )}
+            onUpdateValue={(text: any) => {
+              console.log("confrim Password ------------>", text)
+              setEnteredConfirmEmail(text)
+
+            }}
             secure
             value={enteredConfirmPassword}
-            isInvalid={passwordsDontMatch}
+          // isInvalid={passwordsDontMatch}
           />
-        )} 
+        )}
         <View style={styles.buttons}>
           <Button onPress={submitHandler}>
             {isLogin ? 'Log In' : 'Sign Up'}

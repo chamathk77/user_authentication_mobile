@@ -6,6 +6,10 @@ import LoginScreen from './src/screens/LoginScreen';
 import SignupScreen from './src/screens/SignupScreen';
 import WelcomeScreen from './src/screens/WelcomeScreen';
 import { Colors } from './src/constants/styles';
+import { Provider, useDispatch, useSelector } from 'react-redux';
+import store from './src/redux/store/store';
+import IconButton from './src/components/UI/IconButton';
+import { Update_isAuthenticated } from './src/redux/reducers/LoginReducer';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +29,8 @@ function AuthStack() {
 }
 
 function AuthenticatedStack() {
+ const dispatch=useDispatch()
+  
   return (
     <Stack.Navigator
       screenOptions={{
@@ -33,15 +39,18 @@ function AuthenticatedStack() {
         contentStyle: { backgroundColor: Colors.primary100 },
       }}
     >
-      <Stack.Screen name="Welcome" component={WelcomeScreen} />
+      <Stack.Screen name="Welcome" component={WelcomeScreen}  options={{headerRight: ()=><IconButton onPress={() => dispatch(Update_isAuthenticated(false))}/>}}/>
     </Stack.Navigator>
   );
 }
 
 function Navigation() {
+
+  const isAuthenticated = useSelector((state: any) => state.Login_and_Signup.LoginUser.isAuthenticated);
+  console.log("isAuthenticated--------------->>",isAuthenticated)
   return (
     <NavigationContainer>
-      <AuthStack />
+      {isAuthenticated ? <AuthenticatedStack /> : <AuthStack />}
     </NavigationContainer>
   );
 }
@@ -49,7 +58,9 @@ function Navigation() {
 export default function App() {
   return (
     <>
-      <Navigation />
+      <Provider store={store}>
+        <Navigation />
+      </Provider>
     </>
   );
 }

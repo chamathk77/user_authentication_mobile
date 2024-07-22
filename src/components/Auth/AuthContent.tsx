@@ -40,21 +40,24 @@ function AuthContent({ isLogin, onAuthenticate,  }:any) {
     const emailsAreEqual = email === confirmEmail;
     const passwordsAreEqual = password === confirmPassword;
 
-    if (
-      !emailIsValid ||
-      !passwordIsValid ||
-      (!isLogin && (!emailsAreEqual || !passwordsAreEqual))
+    if  (
+      // !emailIsValid ||
+      // !passwordIsValid ||
+      // (!isLogin && (!emailsAreEqual || !passwordsAreEqual))
+      true
     ) {
-      Alert.alert('Invalid input', 'Please check your entered credentials.');
-      setCredentialsInvalid({
-        email: !emailIsValid,
-        confirmEmail: !emailIsValid || !emailsAreEqual,
-        password: !passwordIsValid,
-        confirmPassword: !passwordIsValid || !passwordsAreEqual,
-      });
-      return;
+      // Alert.alert('Invalid input', 'Please check your entered credentials.');
+      // setCredentialsInvalid({
+      //   email: !emailIsValid,
+      //   confirmEmail: !emailIsValid || !emailsAreEqual,
+      //   password: !passwordIsValid,
+      //   confirmPassword: !passwordIsValid || !passwordsAreEqual,
+      // });
+      // return;
+      // console.log('user name ' + email + ' password ' + password)
+      
+    onAuthenticate({email, password} );
     }
-    onAuthenticate({ email, password });
   }
 
   return (
